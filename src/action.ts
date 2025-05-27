@@ -28,6 +28,7 @@ const signInWith = (provider:Provider) => async (): Promise<{ success: string | 
   }}
 
 const signinWithGithub = signInWith('github')
+const signinWithGoogle = signInWith('google')
 
 const signOut = async () => {
   const supabase = await createClientForServer()
@@ -95,4 +96,5 @@ export {
   signupWithEmailPassword,
   signinWithGithub,
   signinWithEmailPassword,
+  signinWithGoogle
 }
