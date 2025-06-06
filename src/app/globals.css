@@ -138,6 +138,198 @@ body {
   color: #6b7280;
 }
 
+/* globals.css */
+.markdown-content {
+  color: #e5e7eb; /* text-gray-200 */
+}
+
+/* Headings */
+.markdown-content h1 {
+  font-size: 1.875rem; /* text-3xl */
+  font-weight: 700; /* font-bold */
+  color: #fff; /* text-white */
+  margin-bottom: 1.5rem; /* mb-6 */
+  margin-top: 2rem; /* mt-8 */
+  padding-bottom: 0.75rem; /* pb-3 */
+  border-bottom: 2px solid #4b5563; /* border-gray-600 */
+}
+
+.markdown-content h2 {
+  font-size: 1.5rem; /* text-2xl */
+  font-weight: 700; /* font-bold */
+  color: #fff;
+  margin-bottom: 1rem; /* mb-4 */
+  margin-top: 1.5rem; /* mt-6 */
+}
+
+.markdown-content h3 {
+  font-size: 1.25rem; /* text-xl */
+  font-weight: 600; /* font-semibold */
+  color: #fff;
+  margin-bottom: 0.75rem; /* mb-3 */
+  margin-top: 1.25rem; /* mt-5 */
+}
+
+.markdown-content h4 {
+  font-size: 1.125rem; /* text-lg */
+  font-weight: 600;
+  color: #fff;
+  margin-bottom: 0.75rem; /* mb-3 */
+  margin-top: 1rem; /* mt-4 */
+}
+
+.markdown-content h5 {
+  font-size: 1rem; /* text-base */
+  font-weight: 600;
+  color: #fff;
+  margin-bottom: 0.5rem; /* mb-2 */
+  margin-top: 0.75rem; /* mt-3 */
+}
+
+.markdown-content h6 {
+  font-size: 0.875rem; /* text-sm */
+  font-weight: 600;
+  color: #fff;
+  margin-bottom: 0.5rem; /* mb-2 */
+  margin-top: 0.75rem; /* mt-3 */
+}
+
+/* Paragraphs */
+.markdown-content p {
+  margin-bottom: 1rem; /* mb-4 */
+  color: #e5e7eb; /* text-gray-200 */
+  line-height: 1.625; /* leading-relaxed */
+}
+
+/* Lists */
+.markdown-content ul,
+.markdown-content ol {
+  margin-bottom: 1.5rem; /* mb-6 */
+  margin-left: 1.5rem; /* ml-6 */
+  /* vertical spacing between list items */
+  /* space-y-2 roughly means margin-bottom: 0.5rem for each li except last */
+}
+
+.markdown-content li {
+  color: #e5e7eb;
+  line-height: 1.625;
+  padding-left: 0.5rem; /* pl-2 for list-style positioning */
+}
+
+/* For unordered lists */
+.markdown-content ul li {
+  list-style-type: disc;
+}
+
+/* For ordered lists */
+.markdown-content ol li {
+  list-style-type: decimal;
+}
+
+/* Inline code */
+.markdown-content code:not(pre code) {
+  padding: 0.25rem 0.5rem; /* px-2 py-1 */
+  background-color: #374151; /* bg-gray-700 */
+  color: #fbbf24; /* text-yellow-400 */
+  border-radius: 0.25rem; /* rounded */
+  font-size: 0.875rem; /* text-sm */
+  font-family: monospace;
+  border: 1px solid #4b5563; /* border-gray-600 */
+}
+
+/* Bold and italic */
+.markdown-content strong {
+  font-weight: 700;
+  color: #fff;
+}
+
+.markdown-content em {
+  font-style: italic;
+  color: #d1d5db; /* text-gray-300 */
+}
+
+/* Links */
+.markdown-content a {
+  color: #60a5fa; /* text-blue-400 */
+  text-decoration: underline;
+}
+
+.markdown-content a:hover {
+  color: #93c5fd; /* hover:text-blue-300 */
+}
+
+/* Blockquotes */
+.markdown-content blockquote {
+  border-left: 4px solid #4b5563; /* border-gray-600 */
+  padding-left: 1rem; /* pl-4 */
+  padding-top: 0.5rem; /* py-2 */
+  padding-bottom: 0.5rem; /* py-2 */
+  margin-bottom: 1rem; /* mb-4 */
+  font-style: italic;
+  color: #d1d5db; /* text-gray-300 */
+  background-color: #1f2937; /* bg-gray-800 */
+}
+
+/* Tables */
+.markdown-content table {
+  width: 100%;
+  border-collapse: collapse;
+  border: 1px solid #4b5563;
+  margin-bottom: 1.5rem;
+}
+
+.markdown-content th,
+.markdown-content td {
+  border: 1px solid #4b5563;
+  padding: 0.5rem 1rem; /* px-4 py-2 */
+  color: #e5e7eb;
+}
+
+.markdown-content th {
+  background-color: #1f2937; /* bg-gray-800 */
+  font-weight: 600;
+  text-align: left;
+  color: #fff;
+}
+
+/* Horizontal rules */
+.markdown-content hr {
+  border: 0;
+  border-top: 2px solid #4b5563;
+  padding-left: 10px;
+  padding-bottom: -10px;
+  padding-right: 10px;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+/* Remove default prose styles that conflict */
+.markdown-content .prose {
+  max-width: none;
+}
+
+/* Ensure proper spacing */
+.markdown-content > *:first-child {
+  margin-top: 0;
+}
+
+.markdown-content > *:last-child {
+  margin-bottom: 0;
+}
+
+
+/* Code block specific styles */
+.code-block-wrapper {
+  padding: 10px;
+  position: relative;
+}
+
+.copy-button:hover {
+  transform: translateY(-1px);
+}
+
+
+
 /* Dark mode adjustments */
 @media (prefers-color-scheme: dark) {
   .prose code {

@@ -3,19 +3,19 @@
 import type React from "react"
 import { useState } from "react"
 import axios from "axios"
-import { remark } from "remark"
-import html from "remark-html"
+import { BookOpen } from "lucide-react"
+import MarkdownRenderer from "./MarkdownRenderer"
 
 export default function ContentSection() {
   const [topic, setTopic] = useState("")
-  const [notesHtml, setNotesHtml] = useState("")
+  const [notes, setNotes] = useState("")
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
   const generateNotes = async () => {
     setLoading(true)
     setError(null)
-    setNotesHtml("")
+    setNotes("")
 
     try {
       const response = await axios.get(`/api/gemini`, {
@@ -23,11 +23,10 @@ export default function ContentSection() {
           topic: topic,
         },
       })
+      console.log(response.data)
+      const { notes: generatedNotes } = response.data
 
-      const { notes } = response.data
-
-      const processedContent = await remark().use(html, { sanitize: false }).process(notes)
-      setNotesHtml(processedContent.toString())
+      setNotes(generatedNotes)
     } catch (err: any) {
       console.error("Error generating notes:", err)
       setError(err.response?.data?.error || err.message || "Failed to generate notes. Please try again.")
@@ -45,38 +44,32 @@ export default function ContentSection() {
   return (
     <div className="max-w-4xl mx-auto p-6 space-y-6">
       {/* Input Card */}
-      <div className="bg-white border border-gray-200 rounded-lg shadow-sm">
+      <div className="bg-white border border-gray-200 rounded-xl shadow-sm sticky top-0 z-10">
         <div className="p-6 border-b border-gray-200">
-          <h1 className="text-xl font-semibold text-gray-900 flex items-center gap-2">
-            <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
-              />
-            </svg>
-            Generate Study Notes
+          <h1 className="text-2xl font-bold text-gray-900 flex items-center gap-3">
+            <BookOpen className="h-7 w-7 text-blue-600" />
+            AI Study Notes Generator
           </h1>
+          <p className="text-gray-600 mt-2">Generate comprehensive study notes on any topic using AI</p>
         </div>
         <div className="p-6 space-y-4">
-          <div className="flex gap-2">
+          <div className="flex gap-3">
             <input
               type="text"
               value={topic}
               onChange={(e) => setTopic(e.target.value)}
-              onKeyPress={handleKeyPress}
+              onKeyDown={handleKeyPress}
               placeholder="e.g., JavaScript Promises, React Hooks, Python Data Structures"
-              className="flex-1 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              className="flex-1 px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-900 placeholder-gray-500"
             />
             <button
               onClick={generateNotes}
               disabled={loading || !topic}
-              className="min-w-[120px] px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+              className="min-w-[140px] px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 font-medium transition-colors"
             >
               {loading ? (
                 <>
-                  <svg className="animate-spin h-4 w-4" fill="none" viewBox="0 0 24 24">
+                  <svg className="animate-spin h-5 w-5" fill="none" viewBox="0 0 24 24">
                     <circle
                       className="opacity-25"
                       cx="12"
@@ -110,13 +103,16 @@ export default function ContentSection() {
       </div>
 
       {/* Notes Output Card */}
-      {notesHtml && (
-        <div className="bg-white border border-gray-200 rounded-lg shadow-sm">
+      {notes && (
+        <div className="bg-white border border-gray-200 rounded-xl shadow-sm">
           <div className="p-6 border-b border-gray-200">
-            <h2 className="text-xl font-semibold text-gray-900">Generated Notes</h2>
+            <h2 className="text-xl font-semibold text-gray-900 flex items-center gap-2">
+              <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+              Generated Study Notes
+            </h2>
           </div>
-          <div className="p-6">
-            <div className="prose prose-slate max-w-none" dangerouslySetInnerHTML={{ __html: notesHtml }} />
+          <div className="p-6 z-10">
+           <MarkdownRenderer content={notes}/>
           </div>
         </div>
       )}
